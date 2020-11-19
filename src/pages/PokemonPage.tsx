@@ -4,6 +4,7 @@ import { PokeApi } from '../api/PokeApi'
 import { Header } from '../components/Header'
 import { Pagination } from '../components/Pagination'
 import { PokemonList } from '../components/PokemonList'
+import { SearchBar } from '../components/SearchBar'
 import './PokemonPage.scss'
 
 export function PokemonPage () {
@@ -52,7 +53,10 @@ export function PokemonPage () {
         <Header/>
 
         <section className="content">
-            <div className="pokemon-limit">
+            <div className="head-content">
+                <SearchBar setPokemonList={list => {
+                    setPokemonList(list)
+                }} pokemonsCount={pokemonCount}/>
                 <select
                     className="select-pokemon-count"
                     defaultValue = { defaultLimit }

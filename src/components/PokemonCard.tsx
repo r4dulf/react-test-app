@@ -19,10 +19,11 @@ export function PokemonCard(props: { url: string }) {
         <div className="pokemon-card">
             <div className="headline">
                 <span className="pokemon-name">
-                    { pokemon.name }
-                </span>
-                <span className="pokemon-id">
-                    #{ pokemon.id }
+                    { pokemon.name.split('-').join(' ') }
+
+                    <sup className="pokemon-id">
+                        #{ pokemon.id }
+                    </sup>
                 </span>
             </div>
             <div className="sprites">

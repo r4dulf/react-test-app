@@ -7,12 +7,12 @@
         justify-content: center;
     }
 
-    .pokemon-limit {
+    .head-content {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         margin-bottom: 15px;
 
-        .select-pokemon-count {
+        .select-pokemon-count, input {
             padding: 5px;
         }
     }

@@ -4,19 +4,7 @@ import { IPokemonList } from '../api/IPokeApi'
 import { PokemonCard } from './PokemonCard';
 import './PokemonList.scss'
 
-export function PokemonList(props: { offset: number, limit?: number }) {
-    const [pokemonList, setPokemonList] = useState({} as IPokemonList);
-    const { offset, limit } = props;
-
-    useEffect(() => {
-        const setupPokemons = async () => {
-            const pokemonList = await PokeApi.getPokemonList(offset, limit);
-
-            setPokemonList(pokemonList);
-        }
-
-        setupPokemons();
-    }, [offset, limit]);
+export function PokemonList({ pokemonList }: { pokemonList: IPokemonList}) {
 
     return pokemonList.results? (
         <ul className="pokemon-list">

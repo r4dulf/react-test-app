@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { IPokemonList } from '../api/IPokeApi'
 import { PokeApi } from '../api/PokeApi'
 import { Header } from '../components/Header'
 import { Pagination } from '../components/Pagination'
@@ -15,6 +16,18 @@ export function PokemonPage () {
     const [limit, setLimit] = useState(defaultLimit);
     const [pokemonCount, setPokemonCount] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(0);
+
+    const [pokemonList, setPokemonList] = useState({} as IPokemonList);
+
+    useEffect(() => {
+        const setupPokemons = async () => {
+            const pokemonList = await PokeApi.getPokemonList(offset, limit);
+
+            setPokemonList(pokemonList);
+        }
+
+        setupPokemons();
+    }, [offset, limit]);
 
     useEffect(() => {
         const getPokemonCount = async () => {
@@ -56,7 +69,7 @@ export function PokemonPage () {
                     ))}
                 </select>
             </div>
-            <PokemonList offset={offset} limit={limit}/>
+            <PokemonList pokemonList={pokemonList}/>
 
             <div className="pagination-wrapper">
                 <Pagination

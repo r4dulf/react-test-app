@@ -16,18 +16,7 @@ export function PokemonPage () {
     const [limit, setLimit] = useState(defaultLimit);
     const [pokemonCount, setPokemonCount] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(0);
-
     const [pokemonList, setPokemonList] = useState({} as IPokemonList);
-
-    useEffect(() => {
-        const setupPokemons = async () => {
-            const pokemonList = await PokeApi.getPokemonList(offset, limit);
-
-            setPokemonList(pokemonList);
-        }
-
-        setupPokemons();
-    }, [offset, limit]);
 
     useEffect(() => {
         const getPokemonCount = async () => {
@@ -40,8 +29,18 @@ export function PokemonPage () {
     }, []);
 
     useEffect(() => {
+        const setupPokemons = async () => {
+            const pokemonList = await PokeApi.getPokemonList(offset, limit);
+
+            setPokemonList(pokemonList);
+        }
+
+        setupPokemons();
+    }, [offset, limit]);
+
+    useEffect(() => {
         setOffset(limit * currentPage);
-    }, [limit, currentPage]);
+    }, [currentPage]);
 
     useEffect(() => {
         setCurrentPage(0)
@@ -69,6 +68,7 @@ export function PokemonPage () {
                     ))}
                 </select>
             </div>
+
             <PokemonList pokemonList={pokemonList}/>
 
             <div className="pagination-wrapper">

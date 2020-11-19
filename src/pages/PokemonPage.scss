@@ -1,0 +1,19 @@
+.content {
+    padding: 20px;
+
+    .pagination-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pokemon-limit {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+
+        .select-pokemon-count {
+            padding: 5px;
+        }
+    }
+}

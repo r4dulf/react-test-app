@@ -9,12 +9,12 @@ export function PokemonPage () {
     const defaultLimit = 20;
     const limitArray = [defaultLimit, 5, 10, 50];
 
+    limitArray.sort((a, b) => a - b);
+
     const [offset, setOffset] = useState(0);
     const [limit, setLimit] = useState(defaultLimit);
     const [pokemonCount, setPokemonCount] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(0);
-
-    limitArray.sort((a, b) => a - b);
 
     useEffect(() => {
         const getPokemonCount = async () => {
@@ -41,14 +41,17 @@ export function PokemonPage () {
 
         <section className="content">
             <div className="pokemon-limit">
-                <select className="select-pokemon-count" onChange={(event) => {
-                    setLimit(+event.target.value)
-                }}>
+                <select
+                    className="select-pokemon-count"
+                    defaultValue = { defaultLimit }
+                    onChange={(event) => {
+                        setLimit(+event.target.value)
+                    }}
+                >
                     {limitArray.map(count => (
                         <option
                             value={count}
                             key={count}
-                            selected={count === defaultLimit}
                         >{ count }</option>
                     ))}
                 </select>

@@ -12,9 +12,10 @@
     
         .head-content {
             display: flex;
-            margin-bottom: 15px;
             justify-content: space-between;
             align-items: center;
+            padding: 5px;
+            padding-bottom: 15px;
     
             .select-pokemon-count {
                 color: white;
@@ -47,6 +48,8 @@
     
                 margin: 5px 0px;
             }
+
+            
         }
     }
 }

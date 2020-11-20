@@ -36,8 +36,9 @@ export function Pagination (props: IPagination ) {
                 <button
                     onClick={(e) => setPage(0)}
                     className={`pagination-button ${active === 0? 'active' : ''}`}
-                >{'<<'}
-                    </button>
+                >
+                    {'<<'}
+                </button>
             </div>
 
             {                
@@ -46,7 +47,9 @@ export function Pagination (props: IPagination ) {
                         <button
                             onClick={(e) => setPage(page)}
                             className={`pagination-button ${active === page? 'active' : ''}`}
-                        >{ page + 1 }</button>
+                        >
+                            { page + 1 }
+                        </button>
                     </div>
                 ))
             }

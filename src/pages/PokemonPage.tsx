@@ -1,3 +1,4 @@
+import { off } from 'process'
 import React, { useEffect, useState } from 'react'
 import { IPokemonList } from '../api/IPokeApi'
 import { PokeApi } from '../api/PokeApi'
@@ -18,6 +19,7 @@ export function PokemonPage () {
     const [pokemonCount, setPokemonCount] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(0);
     const [pokemonList, setPokemonList] = useState({} as IPokemonList);
+    const [query, setQuery] = useState('')
 
     useEffect(() => {
         const getPokemonCount = async () => {
@@ -30,22 +32,34 @@ export function PokemonPage () {
     }, []);
 
     useEffect(() => {
-        const setupPokemons = async () => {
-            const pokemonList = await PokeApi.getPokemonList(offset, limit);
+        if (!query) {
+            const setupPokemons = async () => {
+                const pokemonList = await PokeApi.getPokemonList(offset, limit);
+    
+                setPokemonList(pokemonList);
+            }
+    
+            setupPokemons();
+        } else {
+            const searchPokemons = async () => {
+                const pokemonList = await PokeApi.searchPokemons(query, offset, limit);
 
-            setPokemonList(pokemonList);
+                setPokemonList(pokemonList);
+                setPokemonCount(pokemonList.count);
+            }
+
+            searchPokemons()
         }
-
-        setupPokemons();
-    }, [offset, limit]);
+        
+    }, [offset, limit, query]);
 
     useEffect(() => {
         setOffset(limit * currentPage);
     }, [currentPage]);
 
     useEffect(() => {
-        setCurrentPage(0)
-    }, [limit])
+        setCurrentPage(0);
+    }, [limit, query])
 
 
 
@@ -54,14 +68,12 @@ export function PokemonPage () {
 
         <section className="content">
             <div className="head-content">
-                <SearchBar setPokemonList={list => {
-                    setPokemonList(list)
-                }} pokemonsCount={pokemonCount}/>
+                <SearchBar setQuery={(newQuery: string) => setQuery(newQuery)}/>
                 <select
                     className="select-pokemon-count"
                     defaultValue = { defaultLimit }
                     onChange={(event) => {
-                        setLimit(+event.target.value)
+                        setLimit(+event.target.value);
                     }}
                 >
                     {limitArray.map(count => (

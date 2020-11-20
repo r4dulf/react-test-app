@@ -30,7 +30,7 @@ export function Pagination (props: IPagination ) {
         setTotalPageCount(Math.ceil(pokemonCount / limit));
     }, [pokemonCount, limit])
 
-    return (
+    return pageList.length > 1 ? (
         <div className="pagination">
             <div key={-1} >
                 <button
@@ -61,5 +61,5 @@ export function Pagination (props: IPagination ) {
                 >{'>>'}</button>
             </div>
         </div>
-    )
+    ) : null
 }

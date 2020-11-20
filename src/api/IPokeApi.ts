@@ -8,6 +8,3 @@ export interface IPokemonList {
     }[];
 }
 
-export interface IPokemon {
-    
-}

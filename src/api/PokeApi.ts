@@ -7,17 +7,19 @@ export class PokeApi {
     private static pokemonsCount: number = 0
 
     public static async getPokemon(id: string | number) {
-        const pokemon = await fetch(`${this.api}/pokemon/${id}`);
-        const result = await pokemon.json();
+        const pokemon = await (
+            await fetch(`${this.api}/pokemon/${id}`)
+        ).json()
 
-        return result;
+        return pokemon;
     }
 
     public static async getPokemonList(offset: number, limit:number): Promise<IPokemonList> {
-        const pokemonList = await fetch(`${this.api}/pokemon?offset=${offset}&limit=${limit}`);
-        const result = await pokemonList.json();
+        const pokemonList = await (
+            await fetch(`${this.api}/pokemon?offset=${offset}&limit=${limit}`)
+        ).json();
 
-        return result;
+        return pokemonList;
     }
 
     public static async searchPokemons(query: string, offset: number, limit: number): Promise<IPokemonList> {

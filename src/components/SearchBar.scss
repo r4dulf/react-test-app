@@ -1,0 +1,32 @@
+input {
+    height: 35px;
+    padding: 0px 10px;
+    border: 0;
+
+    margin-right: 3px;
+
+    &[name="query"] {
+        background-color: white;
+        width: 300px;
+    }
+
+    &[name="clear"] {
+        background-color: #222;
+        color: white
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .search-bar {
+        width: 100%;
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 100px;
+
+            input[name="query"] {
+                width: 100%;
+            }
+        }
+    }
+}

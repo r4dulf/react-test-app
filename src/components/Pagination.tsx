@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import './Pagination.scss'
 
-interface IPagination {
+type Props = {
     setPage(page:number): void,
-    active: number,
+    activePage: number,
     pokemonCount: number,
     limit: number,
 }
 
-export function Pagination (props: IPagination ) {
+export function Pagination (props: Props) {
 
     const [pageList, setPageList] = useState<number[]>([]);
-    const { setPage, active, pokemonCount, limit } = props;
+    const { setPage, activePage, pokemonCount, limit } = props;
     const [totalPageCount, setTotalPageCount] = useState<number>(Math.ceil(pokemonCount / limit))
     
     useEffect(() => {
         const currentPageList = [] as number[];
 
-        for (let i = active - 2; i <= active + 2 && i < totalPageCount; i++) {
+        for (let i = activePage - 2; i <= activePage + 2 && i < totalPageCount; i++) {
             if (i >= 0) {
                 currentPageList.push(i);
             }
         }
 
         setPageList(currentPageList);
-    }, [limit, active, pokemonCount, totalPageCount])
+    }, [limit, activePage, pokemonCount, totalPageCount])
 
     useEffect(() => {
         setTotalPageCount(Math.ceil(pokemonCount / limit));
@@ -32,10 +32,10 @@ export function Pagination (props: IPagination ) {
 
     return pageList.length > 1 ? (
         <div className="pagination">
-            <div key={-1} >
+            <div key='previous' >
                 <button
                     onClick={(e) => setPage(0)}
-                    className={`pagination-button ${active === 0? 'active' : ''}`}
+                    className={`pagination-button ${activePage === 0? 'active' : ''}`}
                 >
                     {'<<'}
                 </button>
@@ -45,8 +45,8 @@ export function Pagination (props: IPagination ) {
                 pageList.map((page: number) => (
                     <div key={page}>
                         <button
-                            onClick={(e) => setPage(page)}
-                            className={`pagination-button ${active === page? 'active' : ''}`}
+                            onClick={() => setPage(page)}
+                            className={`pagination-button ${activePage === page? 'active' : ''}`}
                         >
                             { page + 1 }
                         </button>
@@ -54,10 +54,10 @@ export function Pagination (props: IPagination ) {
                 ))
             }
 
-            <div key={totalPageCount}>
+            <div key='next'>
                 <button
                     onClick={(e) => setPage(totalPageCount - 1)}
-                    className={`pagination-button ${active === totalPageCount - 1? 'active' : ''}`}
+                    className={`pagination-button ${activePage === totalPageCount - 1? 'active' : ''}`}
                 >{'>>'}</button>
             </div>
         </div>

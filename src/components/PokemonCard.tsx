@@ -13,7 +13,7 @@ export function PokemonCard(props: { url: string }) {
         }
 
         getPokemonInfo()
-    }, [])
+    }, [props.url]);
 
     return pokemon ? (
         <div className="pokemon-card">

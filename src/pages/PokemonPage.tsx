@@ -9,16 +9,15 @@ import './PokemonPage.scss'
 
 export function PokemonPage () {
     const defaultLimit = 20;
-    const limitArray = [defaultLimit, 5, 10, 50];
+    const limitArray = [defaultLimit, 5, 10, 50].sort((a, b) => a - b);
 
-    limitArray.sort((a, b) => a - b);
-
-    const [offset, setOffset] = useState(0);
     const [limit, setLimit] = useState(defaultLimit);
-    const [pokemonCount, setPokemonCount] = useState<number>(0);
-    const [currentPage, setCurrentPage] = useState<number>(0);
-    const [pokemonList, setPokemonList] = useState({} as IPokemonList);
-    const [query, setQuery] = useState('')
+    const [pokemonCount, setPokemonCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [pokemonList, setPokemonList] = useState<IPokemonList| undefined>(undefined);
+    const [query, setQuery] = useState('');
+
+    const offset = limit * currentPage;
 
     useEffect(() => {
         const getPokemonCount = async () => {
@@ -36,6 +35,7 @@ export function PokemonPage () {
                 const pokemonList = await PokeApi.getPokemonList(offset, limit);
     
                 setPokemonList(pokemonList);
+                setPokemonCount(pokemonList.count);
             }
     
             setupPokemons();
@@ -53,47 +53,47 @@ export function PokemonPage () {
     }, [offset, limit, query]);
 
     useEffect(() => {
-        setOffset(limit * currentPage);
-    }, [currentPage]);
-
-    useEffect(() => {
         setCurrentPage(0);
-    }, [limit, query])
-
-
+    }, [limit, query]);
 
     return <>
         <Header/>
 
-        <section className="content">
-            <div className="head-content">
-                <SearchBar setQuery={(newQuery: string) => setQuery(newQuery)}/>
-                <select
-                    className="select-pokemon-count"
-                    defaultValue = { defaultLimit }
-                    onChange={(event) => {
-                        setLimit(+event.target.value);
-                    }}
-                >
-                    {limitArray.map(count => (
-                        <option
-                            value={count}
-                            key={count}
-                        >{ count }</option>
-                    ))}
-                </select>
-            </div>
+        <section className="content-wrapper">
+            <div className="content">
+                <div className="head-content">
+                    <SearchBar updateQuery={(newQuery) => setQuery(newQuery)}/>
+                    <div className="select-pokemon-count">
+                        <span className="select-title">
+                            Cards on page: 
+                        </span>
+                        <select
+                            defaultValue = { defaultLimit }
+                            onChange={(event) => {
+                                setLimit(+event.target.value);
+                            }}
+                        >
+                            {limitArray.map(count => (
+                                <option
+                                    value={count}
+                                    key={count}
+                                >{ count }</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
 
-            <PokemonList pokemonList={pokemonList}/>
+                {pokemonList && <PokemonList pokemonList={pokemonList}/>}
 
-            <div className="pagination-wrapper">
-                <Pagination
-                    active={currentPage}
-                    pokemonCount={pokemonCount}
-                    limit={limit}
-                    setPage={(page) => {
-                        setCurrentPage(page);
-                }}/>
+                <div className="pagination-wrapper">
+                    <Pagination
+                        activePage={currentPage}
+                        pokemonCount={pokemonCount}
+                        limit={limit}
+                        setPage={(page) => {
+                            setCurrentPage(page);
+                    }}/>
+                </div>
             </div>
         </section>
     </>

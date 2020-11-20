@@ -1,4 +1,3 @@
-import { off } from 'process'
 import React, { useEffect, useState } from 'react'
 import { IPokemonList } from '../api/IPokeApi'
 import { PokeApi } from '../api/PokeApi'

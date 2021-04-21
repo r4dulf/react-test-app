@@ -1,30 +1,29 @@
 header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #222;
+  color: white;
+  padding: 0px 20px 0px 10px;
+
+  .logo {
+    padding: 10px;
+  }
+
+  nav {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #222;
-    color: white;
-    padding: 0px 20px 0px 10px;
 
-    .logo {
-        padding: 10px;
+    a {
+      text-decoration: none;
+      color: white;
+      padding: 10px 15px;
+      box-shadow: 0px 0px 0px white inset;
+      transition: box-shadow linear 0.2s;
+      margin-left: 5px;
+
+      &:hover {
+        box-shadow: 0px -3px 0px white inset;
+      }
     }
-
-    nav {
-        display: flex;
-
-        a {
-            text-decoration: none;
-            color: white;
-            padding: 10px 15px;
-            box-shadow: 0px 0px 0px white inset;
-            transition: box-shadow linear .2s;
-            margin-left: 5px;
-
-            &:hover {
-                box-shadow: 0px -3px 0px white inset;
-            }
-        }
-        
-    }
+  }
 }

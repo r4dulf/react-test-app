@@ -1,54 +1,54 @@
 .pokemon-card {
-    padding: 25px 20px;
-    border-radius: 20px;
-    background-color: white;
-    max-width: 275px;
-    min-width: 275px;
+  padding: 25px 20px;
+  border-radius: 20px;
+  background-color: white;
+  max-width: 275px;
+  min-width: 275px;
 
-    .headline {
+  .headline {
+    display: flex;
+    justify-content: space-between;
+
+    .pokemon-name::first-letter {
+      text-transform: uppercase;
+    }
+
+    .pokemon-name {
+      font-size: 20px;
+    }
+  }
+
+  .sprites {
+    display: flex;
+    align-items: center;
+    overflow: scroll;
+    overflow-y: hidden;
+    margin: 10px 0px;
+    max-height: 96px;
+    min-height: 96px;
+
+    img {
+      max-width: 96px;
+      max-height: 96px;
+      min-width: 96px;
+      min-height: 96px;
+    }
+  }
+
+  .stats {
+    .stat-wrapper {
+      margin: 5px 0px;
+
+      .title-row {
+        font-size: 15px;
         display: flex;
         justify-content: space-between;
 
-        .pokemon-name::first-letter {
-            text-transform: uppercase;
+        .stat-name {
+          text-transform: uppercase;
+          font-weight: 400;
         }
-
-        .pokemon-name {
-            font-size: 20px;
-        }
+      }
     }
-
-    .sprites {
-        display: flex;
-        align-items: center;
-        overflow: scroll;
-        overflow-y: hidden;
-        margin: 10px 0px;
-        max-height: 96px;
-        min-height: 96px;
-
-        img {
-            max-width: 96px;
-            max-height: 96px;
-            min-width: 96px;
-            min-height: 96px;
-        }
-    }
-
-    .stats {
-        .stat-wrapper {
-            margin: 5px 0px;
-            
-            .title-row {
-                font-size: 15px;
-                display: flex;
-                justify-content: space-between;
-
-                .stat-name {
-                    text-transform: uppercase;
-                    font-weight: 400;
-                }
-            }
-        }
-    }
+  }
 }

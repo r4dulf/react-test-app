@@ -1,18 +1,18 @@
 .camera-app {
+  display: flex;
+  justify-content: center;
+
+  .video-wrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 
-    .video-wrapper {
-        display: flex;
-        flex-direction: column;
-
-        video {
-            width: 640px;
-            height: 480px;
-        }
-
-        .manage {
-            text-align: center;
-        }
+    video {
+      width: 640px;
+      height: 480px;
     }
+
+    .manage {
+      text-align: center;
+    }
+  }
 }
